@@ -1,5 +1,6 @@
 package SeleniumTest;
 
+import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class Step {
     WebDriver driver;
 
+  @Before
     public void user_is_on_HomePage(){
         System.setProperty("webdriver.chrome.driver","src/main/resources/driver/chromedriver.exe");
         driver = new ChromeDriver();
