@@ -29,6 +29,9 @@ public class TestPage {
         pageObjectManager = new PageObjectManager(driver);
         home = pageObjectManager.getHomePage();
         home.navigateTo_Homepage();
+        productListingPage = pageObjectManager.getProductListingPage();
+        cartPage = pageObjectManager.getCartPage();
+        checkoutPage = pageObjectManager.getCheckoutPage();
 
     }
 
@@ -39,21 +42,15 @@ public class TestPage {
 
     @Test
     public void Test()  throws InterruptedException{
-        home = new HomePage(driver);
         home.navigateTo_Homepage();
         home.perform_Search();
-        productListingPage = pageObjectManager.getProductListingPage();
         productListingPage.fill_ProductDetails();
         Thread.sleep(2000);
         productListingPage.select_Color() ;
         productListingPage.select_Size();
         productListingPage.clickOn_AddToCard();
-        cartPage = pageObjectManager.getCartPage();
-        cartPage = new CartPage(driver);
         cartPage.clickOn_Cart();
         cartPage.clickOn_ContinueToCheckout();
-        checkoutPage = pageObjectManager.getCheckoutPage();
-        checkoutPage = new CheckoutPage(driver);
         checkoutPage.fill_PersonalDetails();
         Thread.sleep(2000);
         checkoutPage.check_TermAndCondition(true);
