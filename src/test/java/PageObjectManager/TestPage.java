@@ -1,12 +1,15 @@
-package PageObjectModel;
+package PageObjectManager;
 
+
+import PageObjectModel.CartPage;
+import PageObjectModel.CheckoutPage;
+import PageObjectModel.HomePage;
+import PageObjectModel.ProductListingPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import javax.annotation.WillCloseWhenClosed;
 import java.util.concurrent.TimeUnit;
 
 public class TestPage {
@@ -15,6 +18,7 @@ public class TestPage {
     ProductListingPage productListingPage;
     CartPage cartPage;
     CheckoutPage checkoutPage;
+    PageObjectManager pageObjectManager;
 
     @Before
     public void start(){
@@ -22,6 +26,9 @@ public class TestPage {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        pageObjectManager = new PageObjectManager(driver);
+        home = pageObjectManager.getHomePage();
+        home.navigateTo_Homepage();
 
     }
 
@@ -35,15 +42,17 @@ public class TestPage {
         home = new HomePage(driver);
         home.navigateTo_Homepage();
         home.perform_Search();
-        productListingPage = new ProductListingPage(driver);
+        productListingPage = pageObjectManager.getProductListingPage();
         productListingPage.fill_ProductDetails();
         Thread.sleep(2000);
         productListingPage.select_Color() ;
         productListingPage.select_Size();
         productListingPage.clickOn_AddToCard();
+        cartPage = pageObjectManager.getCartPage();
         cartPage = new CartPage(driver);
         cartPage.clickOn_Cart();
         cartPage.clickOn_ContinueToCheckout();
+        checkoutPage = pageObjectManager.getCheckoutPage();
         checkoutPage = new CheckoutPage(driver);
         checkoutPage.fill_PersonalDetails();
         Thread.sleep(2000);
