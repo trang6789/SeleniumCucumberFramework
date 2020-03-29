@@ -1,19 +1,15 @@
 package PageObjectManager;
 
-import PageObjectModel.CartPage;
-import PageObjectModel.CheckoutPage;
-import PageObjectModel.HomePage;
-import PageObjectModel.ProductListingPage;
 import org.openqa.selenium.WebDriver;
 
-public class PageObjectManager {
+public class PageObject {
     private WebDriver driver;
     private ProductListingPage productListingPage;
     private CartPage cartPage;
     private HomePage homePage;
     private CheckoutPage checkoutPage;
 
-    public PageObjectManager(WebDriver driver){
+    public PageObject(WebDriver driver){
         this.driver = driver;
     }
 
