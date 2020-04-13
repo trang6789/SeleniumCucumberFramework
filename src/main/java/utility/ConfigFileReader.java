@@ -4,11 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.security.PublicKey;
 import java.util.Properties;
 
 public class ConfigFileReader {
     private Properties properties;
-    private final String propertyFilePath = "src/main/resources/selenium.properties";
+    private final String propertyFilePath = "configs/Configuration.properties";
 
     public ConfigFileReader(){
         BufferedReader reader;
@@ -27,8 +28,13 @@ public class ConfigFileReader {
         }
     }
 
+//    public String getDriverPath(){
+//        String driverPath = properties.getProperty("ChromeDriverPath");
+//        if(driverPath!= null) return driverPath;
+//        else throw new RuntimeException("driverPath not specified in the Configuration.properties file.");
+//    }
     public String getDriverPath(){
-        String driverPath = properties.getProperty("ChromeDriverPath");
+        String driverPath = properties.getProperty("driverPath");
         if(driverPath!= null) return driverPath;
         else throw new RuntimeException("driverPath not specified in the Configuration.properties file.");
     }
@@ -39,9 +45,35 @@ public class ConfigFileReader {
         else throw new RuntimeException("implicitlyWait not specified in the Configuration.properties file.");
     }
 
+//    public String getApplicationUrl() {
+//        String baseUrl = properties.getProperty("baseUrl");
+//        if(baseUrl != null) return baseUrl;
+//        else throw new RuntimeException("url not specified in the Configuration.properties file.");
+//    }
     public String getApplicationUrl() {
-        String baseUrl = properties.getProperty("baseUrl");
+        String baseUrl = properties.getProperty("url");
         if(baseUrl != null) return baseUrl;
         else throw new RuntimeException("url not specified in the Configuration.properties file.");
+    }
+
+    public DriverType getBrowser() {
+        String browserName = properties.getProperty("browser");
+        if(browserName == null || browserName.equals("chrome")) return DriverType.CHROME;
+        else if(browserName.equalsIgnoreCase("firefox")) return DriverType.FIREFOX;
+        else if(browserName.equals("iexplorer")) return DriverType.INTERNETEXPLORER;
+        else throw new RuntimeException("Browser Name Key value in Configuration.properties is not matched : " + browserName);
+    }
+
+    public EnvironmentType getEnvironment() {
+        String environmentName = properties.getProperty("environment");
+        if(environmentName == null || environmentName.equalsIgnoreCase("local")) return EnvironmentType.LOCAL;
+        else if(environmentName.equals("remote")) return EnvironmentType.REMOTE;
+        else throw new RuntimeException("Environment Type Key value in Configuration.properties is not matched : " + environmentName);
+    }
+
+    public Boolean getBrowserWindowSize() {
+        String windowSize = properties.getProperty("windowMaximize");
+        if(windowSize != null) return Boolean.valueOf(windowSize);
+        return true;
     }
 }

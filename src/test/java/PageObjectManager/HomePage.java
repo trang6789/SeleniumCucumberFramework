@@ -13,11 +13,11 @@ public class HomePage {
         PageFactory.initElements(driver,this);
     }
     public void perform_Search(String search){
-        //driver.navigate().to("http://shop.demoqa.com/?s=" + search + "&post_type=product");
-        driver.navigate().to(configFileReader.getApplicationUrl() + "/?s=" + search + "&post_type=product");
+        driver.navigate().to("http://shop.demoqa.com/?s=" + search + "&post_type=product");
+        //driver.navigate().to(configFileReader.getApplicationUrl() + "?s=" + search + "&post_type=product");
     }
     public void navigateTo_HomePage(){
-     //  driver.get("http://www.shop.demoqa.com");
-         driver.get(configFileReader.getApplicationUrl());
+      driver.get("http://www.shop.demoqa.com");
+         //driver.get(configFileReader.getApplicationUrl());
     }
 }
